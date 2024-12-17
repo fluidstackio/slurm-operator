@@ -132,8 +132,6 @@ spec:
                     scontrol update nodename=$(hostname) state=down reason=preStop &&
                     scontrol delete nodename=$(hostname);
           volumeMounts:
-            - mountPath: /dev/shm
-              name: shm
             - name: tmp-volume
               mountPath: /mnt/tmp
             - mountPath: /mnt/nfs  
@@ -144,10 +142,6 @@ spec:
               mountPath: {{ $vct.spec.mountPath | default (printf "/mnt/%s" $vct.metadata.name ) }}
             {{- end }}{{- /* range $vct := $nodeset.volumeClaimTemplates */}}
       volumes:
-        - emptyDir:
-            medium: Memory
-            sizeLimit: 384Gi
-          name: shm
         - name: tmp-volume
           hostPath:
             path: /tmp
