@@ -132,6 +132,8 @@ spec:
                     scontrol update nodename=$(hostname) state=down reason=preStop &&
                     scontrol delete nodename=$(hostname);
           volumeMounts:
+            - mountPath: /dev/shm
+              name: shm
             - mountPath: /mnt/nfs  
               name: nfs-volume
             {{- include "slurm.volumeMounts" $ | nindent 12 }}
@@ -140,6 +142,10 @@ spec:
               mountPath: {{ $vct.spec.mountPath | default (printf "/mnt/%s" $vct.metadata.name ) }}
             {{- end }}{{- /* range $vct := $nodeset.volumeClaimTemplates */}}
       volumes:
+        - emptyDir:
+            medium: Memory
+            sizeLimit: 250Gi
+          name: shm
         - name: nfs-volume
           persistentVolumeClaim:
             claimName: nfs
