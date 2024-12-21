@@ -106,6 +106,16 @@ spec:
                 - scontrol
                 - ping
           volumeMounts:
+            - name: sssd-conf
+              mountPath: /etc/sssd/sssd.conf
+              subPath: sssd.conf
+              readOnly: true
+            - name: dbus-socket
+              mountPath: /var/run/dbus
+              readOnly: true
+            - name: sss-pipes
+              mountPath: /var/lib/sss/pipes
+              readOnly: true
             {{- include "slurm.volumeMounts" . | nindent 12 }}
             - name: authsocket
               mountPath: /run/slurmctld
