@@ -129,6 +129,18 @@ spec:
             - name: authsocket
               mountPath: /run/slurmctld
       volumes:
+        - name: sssd-conf
+          hostPath:
+            path: /etc/sssd/sssd.conf
+            type: File 
+        - name: dbus-socket
+          hostPath:
+            path: /var/run/dbus
+            type: Directory 
+        - name: sss-pipes
+          hostPath:
+            path: /var/lib/sss/pipes
+            type: Directory 
         {{- include "slurm.volumes" . | nindent 8 }}
         - name: slurm-config
           projected:
