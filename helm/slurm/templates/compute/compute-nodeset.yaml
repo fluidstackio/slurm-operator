@@ -132,6 +132,16 @@ spec:
                     scontrol update nodename=$(hostname) state=down reason=preStop &&
                     scontrol delete nodename=$(hostname);
           volumeMounts:
+            - name: sssd-conf
+              mountPath: /etc/sssd/sssd.conf
+              subPath: sssd.conf
+              readOnly: true
+            - name: dbus-socket
+              mountPath: /var/run/dbus
+              readOnly: true
+            - name: sss-pipes
+              mountPath: /var/lib/sss/pipes
+              readOnly: true
             - mountPath: /dev/shm
               name: shm
             - mountPath: /mnt/nfs  
@@ -142,6 +152,18 @@ spec:
               mountPath: {{ $vct.spec.mountPath | default (printf "/mnt/%s" $vct.metadata.name ) }}
             {{- end }}{{- /* range $vct := $nodeset.volumeClaimTemplates */}}
       volumes:
+        - name: sssd-conf
+          hostPath:
+            path: /etc/sssd/sssd.conf
+            type: File 
+        - name: dbus-socket
+          hostPath:
+            path: /var/run/dbus
+            type: Directory 
+        - name: sss-pipes
+          hostPath:
+            path: /var/lib/sss/pipes
+            type: Directory 
         - emptyDir:
             medium: Memory
             sizeLimit: 250Gi
