@@ -140,9 +140,9 @@ spec:
               mountPath: /run/slurmctld
       volumes:
         - name: sssd-conf
-          hostPath:
-            path: /etc/sssd/sssd.conf
-            type: File 
+          configMap:
+            name: sssd-conf
+            defaultMode: 0600
         - name: dbus-socket
           hostPath:
             path: /var/run/dbus
