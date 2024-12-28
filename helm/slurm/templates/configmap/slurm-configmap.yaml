@@ -60,13 +60,15 @@ data:
     AuthAltParameters=jwt_key={{- include "slurm.jwt.hs256.fullPath" . }}
     LaunchParameters=enable_nss_slurm,use_interactive_step
     PrologFlags=Contain
-    ProctrackType=proctrack/linuxproc
+    #ProctrackType=proctrack/linuxproc
+    ProctrackType=proctrack/cgroup
+    TaskPlugin=task/cgroup,task/affinity
     SchedulerType=sched/backfill
     SelectType=select/cons_tres
     SelectTypeParameters=CR_Core_Memory
     SlurmctldParameters=enable_configless,enable_stepmgr
     SwitchType=switch/none
-    TaskPlugin=task/affinity
+    #TaskPlugin=task/affinity
     TopologyPlugin=topology/default
     TopologyParam=RoutePart
     #
