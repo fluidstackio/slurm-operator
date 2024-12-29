@@ -125,13 +125,12 @@ data:
   cgroup.conf: |
     #CgroupPlugin=disabled
     CgroupMountpoint=/sys/fs/cgroup
-    #ConstrainCores=yes
+    ConstrainCores=yes
     ConstrainDevices=yes
-    SignalChildrenProcesses=yes
-    #ConstrainRAMSpace=yes
+    ConstrainRAMSpace=yes
     CgroupPlugin=cgroup/v2
-    #ConstrainSwapSpace=no
-    #EnableControllers=yes
+    ConstrainSwapSpace=no
+    EnableControllers=yes
     IgnoreSystemd=yes
   {{- range $key, $val := .Values.slurm.configFiles -}}
   {{- if or (has $key $failList) (not (has $key $allowList)) }}
