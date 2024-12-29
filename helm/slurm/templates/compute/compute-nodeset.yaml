@@ -134,7 +134,8 @@ spec:
                     scontrol update nodename=$(hostname) state=down reason=preStop &&
                     scontrol delete nodename=$(hostname);
           volumeMounts:
-            - mountPath: /etc/sssd/sssd.conf
+            - name: sssd-conf
+              mountPath: /etc/sssd/sssd.conf
               subPath: sssd.conf
               readOnly: true
             - name: dbus-socket
