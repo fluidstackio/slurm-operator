@@ -85,8 +85,10 @@ spec:
             seccompProfile:
               type: Unconfined
             privileged: true
+            procMount: Unmasked
             capabilities:
               add:
+                - SYS_ADMIN
                 {{- include "slurm.compute.capabilities" $ | nindent 16 }}
           imagePullPolicy: {{ $nodeset.imagePullPolicy | default (include "slurm.imagePullPolicy" $) }}
           {{- if not $nodeset.resources }}
