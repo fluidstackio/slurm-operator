@@ -134,6 +134,8 @@ spec:
                     scontrol update nodename=$(hostname) state=down reason=preStop &&
                     scontrol delete nodename=$(hostname);
           volumeMounts:
+            - mountPath: /sys/fs/cgroup
+              name: cgroup-volume
             - name: sssd-conf
               mountPath: /etc/sssd/sssd.conf
               subPath: sssd.conf
@@ -154,6 +156,10 @@ spec:
               mountPath: {{ $vct.spec.mountPath | default (printf "/mnt/%s" $vct.metadata.name ) }}
             {{- end }}{{- /* range $vct := $nodeset.volumeClaimTemplates */}}
       volumes:
+        - name: cgroup-volume
+          hostPath:
+            path: /sys/fs/cgroup
+            type: Directory
         - name: sssd-conf
           configMap:
             name: sssd-conf
