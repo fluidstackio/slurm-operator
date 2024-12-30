@@ -124,14 +124,14 @@ data:
     {{- end }}{{- /* range $part := .Values.compute.partitions */}}
   cgroup.conf: |
     CgroupPlugin=disabled
-    CgroupMountpoint=/sys/fs/cgroup
-    ConstrainCores=yes
-    ConstrainDevices=yes
-    ConstrainRAMSpace=yes
-    CgroupPlugin=cgroup/v2
-    ConstrainSwapSpace=no
-    EnableControllers=yes
-    IgnoreSystemd=yes
+    #CgroupMountpoint=/sys/fs/cgroup
+    #ConstrainCores=yes
+    #ConstrainDevices=yes
+    #ConstrainRAMSpace=yes
+    #CgroupPlugin=cgroup/v2
+    #ConstrainSwapSpace=no
+    #EnableControllers=yes
+    #IgnoreSystemd=yes
   {{- range $key, $val := .Values.slurm.configFiles -}}
   {{- if or (has $key $failList) (not (has $key $allowList)) }}
   {{- fail (printf "configFiles cannot contain `%s`: either is not a valid config file or is reserved for chart use" $key) }}
