@@ -30,7 +30,7 @@ data:
     SlurmUser={{- include "slurm.user" . }}
     SlurmdUser=root
     StateSaveLocation={{- include "slurm.controller.statesavePath" . }}
-    ReturnToService=2
+    ReturnToService=0
     GresTypes=gpu
     MaxNodeCount=1024
     {{- if or .Values.slurm.prologScripts .Values.slurm.epilogScripts }}
