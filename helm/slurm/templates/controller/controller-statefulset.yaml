@@ -106,6 +106,15 @@ spec:
                 - scontrol
                 - ping
           volumeMounts:
+            - name: passwd-volume
+              mountPath: /etc/passwd
+              subPath: passwd
+            - name: group-volume
+              mountPath: /etc/group
+              subPath: group
+            - name: shadow-volume
+              mountPath: /etc/shadow
+              subPath: shadow
             {{- include "slurm.volumeMounts" . | nindent 12 }}
             - name: authsocket
               mountPath: /run/slurmctld
@@ -129,6 +138,15 @@ spec:
             - name: authsocket
               mountPath: /run/slurmctld
       volumes:
+        - name: passwd-volume
+          configMap:
+            name: etc-passwd-config
+        - name: group-volume
+          configMap:
+            name: etc-group-config
+        - name: shadow-volume
+          configMap:
+            name: etc-shadow-config
         {{- include "slurm.volumes" . | nindent 8 }}
         - name: slurm-config
           projected:
