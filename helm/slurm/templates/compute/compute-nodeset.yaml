@@ -167,8 +167,8 @@ spec:
             sizeLimit: 250Gi
           name: shm
         - name: nfs-volume
-          persistentVolumeClaim:
-            claimName: nfs
+          hostPath:
+            path: /mnt/fluidstack/nfs 
         {{- include "slurm.volumes" $ | nindent 8 }}
         - name: slurm-config
           projected:
