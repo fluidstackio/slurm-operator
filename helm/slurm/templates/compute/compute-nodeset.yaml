@@ -145,7 +145,7 @@ spec:
               subPath: shadow
             - mountPath: /dev/shm
               name: shm
-            - mountPath: /mnt/nfs  
+            - mountPath: /mnt/fluidstack/nfs  
               name: nfs-volume
             {{- include "slurm.volumeMounts" $ | nindent 12 }}
             {{- range $vct := $nodeset.volumeClaimTemplates }}
