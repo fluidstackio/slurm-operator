@@ -138,6 +138,8 @@ spec:
               name: shm
             - mountPath: /mnt/fluidstack/nfs  
               name: nfs-volume
+            - mountPath: /data  
+              name: data-volume
             {{- include "slurm.volumeMounts" $ | nindent 12 }}
             {{- range $vct := $nodeset.volumeClaimTemplates }}
             - name: {{ $vct.metadata.name }}
@@ -148,6 +150,9 @@ spec:
             medium: Memory
             sizeLimit: 250Gi
           name: shm
+        - name: data-volume
+          hostPath:
+            path: /data
         - name: nfs-volume
           hostPath:
             path: /mnt/fluidstack/nfs 
